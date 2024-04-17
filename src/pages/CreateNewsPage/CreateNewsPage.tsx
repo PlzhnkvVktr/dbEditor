@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import s from "./CreateNewsPage.module.css"
 import JoditEditor from 'jodit-react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap'
+import { useAppDispatch } from '../../hooks/redux';
+import { postNews } from '../../store/reducers/ActionCreators';
 
 type Props = {
 
@@ -8,7 +12,7 @@ type Props = {
 
 export const CreateNewsPage: React.FC<Props> = () => {
 
-  
+  const dispatch = useAppDispatch()
   const editor = useRef(null)
   const [content, setContent] = useState("Start writing")
   const config = {
@@ -20,6 +24,10 @@ export const CreateNewsPage: React.FC<Props> = () => {
   //   setContent(editorContent)
   // };
 
+  const [news, setNews] = useState({
+    title: "sdfsdfsd",
+    message: content
+  })
 
   return (
     <div className="App">
@@ -33,6 +41,14 @@ export const CreateNewsPage: React.FC<Props> = () => {
         onChange={(newContent) => {}}
       />
       {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
+      <Button variant="warning" size="lg" onClick={() => {
+        console.log(news)
+        dispatch(postNews(news))
+        }}>
+        <Link to="/">
+          Создать
+        </Link>
+      </Button>
     </div>
   )
 }

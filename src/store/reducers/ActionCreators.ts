@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { AppDispatch } from "../store";
 import { INews } from "../../models/INews";
 import { newsSlice } from "./NewsReducer";
@@ -8,6 +8,7 @@ import { IProduct } from "../../models/IProduct";
 import { productByCategorySlice } from "./ProductByCategoryReducer";
 import { productItemSlice } from "./ProductItemReducer";
 import { newsItemSlice } from "./NewsItemReducer";
+import { INewsRequest } from "../../models/INewsRequest";
 
 
 
@@ -50,4 +51,40 @@ export const fetchProductsByCategory = (category: string) => async (dispatch: Ap
     } catch (e: any) {
         dispatch(productByCategorySlice.actions.productByCategoryFetchingError(e.message))
     }
+}
+
+
+// var postData = {
+//     email: "test@test.com",
+//     password: "password"
+//   };
+
+//   let axiosConfig = {
+//     headers: {
+//         'Content-Type': 'application/json;charset=UTF-8',
+//         "Access-Control-Allow-Origin": "*",
+//     }
+//   };
+
+//   axios.post('http://<host>:<port>/<path>', postData, axiosConfig)
+//   .then((res) => {
+//     console.log("RESPONSE RECEIVED: ", res);
+//   })
+//   .catch((err) => {
+//     console.log("AXIOS ERROR: ", err);
+//   })
+
+
+export const postNews = (news: INewsRequest) => async (dispatch: AppDispatch) => {
+
+    
+    try {
+            await axios.post("http://127.0.0.1:8080/news", {
+                ...news
+            }
+        )
+    } catch (e: any) {
+        console.log("net")
+    }
+    
 }
