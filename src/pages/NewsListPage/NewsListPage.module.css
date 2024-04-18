@@ -1,0 +1,26 @@
+.news_container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid black;
+}
+.news_title {
+    width: 80%;
+    
+    h2{
+        text-align: left;
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
+.edit_button {
+    border: none;
+    background-color: white;
+    a {
+       text-decoration: none; 
+    }
+}

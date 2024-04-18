@@ -21,15 +21,6 @@ const initialState: NewsState = {
     error: ""
 }
 
-const initialAddNewsState: AddNewsState = {
-    news: {
-        title: "",
-        message: ""
-    },
-    isLoading: false,
-    error: ""
-}
-
 export const addNewsSlice = createSlice({
     name: 'add-news',
     initialState,
@@ -40,6 +31,17 @@ export const addNewsSlice = createSlice({
     }
   }
 })
+
+// export const deleteNewsSlice = createSlice({
+//     name: 'add-news',
+//     initialState,
+//     reducers: {
+//       addNews: (state, action: PayloadAction<INews>) => {
+//         state.news.(action.payload)
+      
+//     }
+//   }
+// })
 
 export const newsSlice = createSlice({
     name: 'news',

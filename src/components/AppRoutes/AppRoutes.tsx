@@ -7,6 +7,7 @@ import { ProductsPage } from '../../pages/Products';
 import { SliderPage } from '../../pages/SliderPage';
 import { NewsListPage } from '../../pages/NewsListPage/NewsList';
 import { CreateNewsPage } from '../../pages/CreateNewsPage/CreateNewsPage';
+import { EditNewsPage } from '../../pages/EditNewsPage/EditNewsPage';
 
 type Props = {
 
@@ -21,6 +22,7 @@ export const AppRoutes: React.FC<Props> = () => {
         <Route path="/news" element={<NewsListPage />} />
         <Route path="/news/:id" element={<NewsPage />} />
         <Route path="/news-create" element={<CreateNewsPage />} />
+        <Route path="/news-edit/:id" element={<EditNewsPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/slider" element={<SliderPage />} />
       </Routes></main>

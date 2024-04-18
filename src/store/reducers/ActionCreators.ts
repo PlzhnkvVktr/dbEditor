@@ -76,15 +76,26 @@ export const fetchProductsByCategory = (category: string) => async (dispatch: Ap
 
 
 export const postNews = (news: INewsRequest) => async (dispatch: AppDispatch) => {
-
-    
     try {
-            await axios.post("http://127.0.0.1:8080/news", {
-                ...news
-            }
-        )
+        await axios.post("http://127.0.0.1:8080/news", {...news})
     } catch (e: any) {
         console.log("net")
     }
     
+}
+
+export const deleteNews = (id: string) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.delete("http://127.0.0.1:8080/news/" + id)
+    } catch (e: any) {
+        console.log("net")
+    }
+}
+
+export const updateNews = (id: string, news: INewsRequest) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.put("http://127.0.0.1:8080/news/" + id,  {...news})
+    } catch (e: any) {
+        console.log("net")
+    }
 }
