@@ -9,6 +9,8 @@ import { productByCategorySlice } from "./ProductByCategoryReducer";
 import { productItemSlice } from "./ProductItemReducer";
 import { newsItemSlice } from "./NewsItemReducer";
 import { INewsRequest } from "../../models/INewsRequest";
+import { imageSlice } from "./ImageReducer";
+import { IImage } from "../../models/Image";
 
 
 
@@ -99,3 +101,77 @@ export const updateNews = (id: string, news: INewsRequest) => async (dispatch: A
         console.log("net")
     }
 }
+
+export const fetchImages = () => async (dispatch: AppDispatch) =>  {
+    try {
+        dispatch(imageSlice.actions.imageFetching())
+        const response = await axios.get<IImage[]>("http://127.0.0.1:8080/images")
+        dispatch(imageSlice.actions.imageFetchingSuccess(response.data))
+    } catch (e: any) {
+        dispatch(imageSlice.actions.imageFetchingError(e.message))
+    }
+}
+
+export const deleteImage = (id: string) => async (dispatch: AppDispatch) =>  {
+    try {
+        await axios.delete("http://127.0.0.1:8080/images/" + id)
+    } catch (e: any) {
+        dispatch(imageSlice.actions.imageFetchingError(e.message))
+    }
+}
+
+export const addImage = (file: any) => async (dispatch: AppDispatch) =>  {
+    // try {
+        const formData = new FormData()
+        formData.append('file', file)
+        // let a
+
+        // const toBase64 = (file: any, onSuccess: any) => {
+        //     let reader = new FileReader()
+        //     reader.onload = () => onSuccess(reader.result)
+        //     reader.readAsDataURL(file)
+        //     console.log("===> ",reader.result)
+        //     return reader.result
+        //     // a = reader.readAsDataURL(file)
+            
+        // }
+
+        // toBase64(file, console.log)
+
+    //     await axios.post("http://127.0.0.1:8080/images/upload", 
+    //     // async () => {
+    //     //     const config = {
+    //     //         params: {
+    //     //             "filename": file.name
+    //     //         }
+    //     //     }}, 
+    //         formData)
+    // } catch (e: any) {
+    //     dispatch(imageSlice.actions.imageFetchingError(e.message))
+    // }
+    // const formData = new FormData()
+    // formData.append('filename', file)
+    // await fetch("http://127.0.0.1:8080/images/upload", {
+    //     method: 'POST',
+    //     body: formData
+    // }) 
+
+
+    axios.post("http://127.0.0.1:8080/images/upload", formData, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        params: {
+            "filename": file.name
+        }
+      } )
+}
+
+// export const addImage1 = (file: any) => async (dispatch: AppDispatch) =>  {
+//     axios.post("http://127.0.0.1:8080/signup", {}, {
+//         params: {
+//             "filename": file.name,
+//             "username": "nigger"
+//         }
+//     })
+// }
