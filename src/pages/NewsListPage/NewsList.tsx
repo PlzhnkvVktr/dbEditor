@@ -14,6 +14,7 @@ export const NewsListPage: React.FC<Props> = () => {
     const dispatch = useAppDispatch()
     const {news, isLoading, error} = useAppSelector(state => state.newsReducer)
     const [loading, setLoading] = useState(false)
+    const [a, setA] = useState([])
 
     useEffect(() => {
       if (!loading && !news.length) { 
@@ -35,7 +36,7 @@ export const NewsListPage: React.FC<Props> = () => {
             Создать
           </Link>
         </Button>
-        {a.map(
+        {news.map(
           (item, key) => 
             <div className={s.news_container} key={key}>
               <div className={s.news_title}>
