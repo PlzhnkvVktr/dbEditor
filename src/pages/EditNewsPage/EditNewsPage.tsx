@@ -21,8 +21,6 @@ export const EditNewsPage: React.FC<Props> = () => {
 
   useEffect(() => {
     dispatch(fetchNewsItem(params.id as string))
-    setTitle(newsItem.title)
-    setContent(newsItem.message)
   }, [])
 
   

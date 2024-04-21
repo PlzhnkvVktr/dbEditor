@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { deleteNews, fetchNews } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { Link } from 'react-router-dom'
@@ -13,13 +13,19 @@ export const NewsListPage: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
     const {news, isLoading, error} = useAppSelector(state => state.newsReducer)
-
-    const handleChange = (event: { target: { files: any } }) => {
-      console.log(event.target.files)
-    }
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-      dispatch(fetchNews())
+      if (!loading && !news.length) { 
+        setLoading(true)
+        dispatch(fetchNews())
+      }
+    }, [loading, news])
+    
+    useEffect(() => {
+      return () => {
+        setLoading(false)
+      }
     }, [])
   
     return (
@@ -29,8 +35,7 @@ export const NewsListPage: React.FC<Props> = () => {
             Создать
           </Link>
         </Button>
-        <input type="file" onChange={handleChange} />
-        {news.map(
+        {a.map(
           (item, key) => 
             <div className={s.news_container} key={key}>
               <div className={s.news_title}>
@@ -42,7 +47,7 @@ export const NewsListPage: React.FC<Props> = () => {
                 <button className={s.edit_button}><Link to={"/news-edit/" + item.id}>&#128396;</Link></button>
                 <button onClick={() => {
                   dispatch(deleteNews(item.id))
-                  dispatch(fetchNews())
+                  // dispatch(fetchNews())
                   }} className={s.edit_button}>&#128465;</button>
               </div>
             </div>

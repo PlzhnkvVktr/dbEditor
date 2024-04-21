@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import s from "./CreateNewsPage.module.css"
 import JoditEditor from 'jodit-react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import { useAppDispatch } from '../../hooks/redux';
 import { postNews } from '../../store/reducers/ActionCreators';
 
@@ -14,8 +14,8 @@ export const CreateNewsPage: React.FC<Props> = () => {
 
   const dispatch = useAppDispatch()
   const editor = useRef(null)
-  const [title, setTitle] = useState("Start writing")
-  const [content, setContent] = useState("Start writing")
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
   const config = {
     height: 600
   };
@@ -25,13 +25,7 @@ export const CreateNewsPage: React.FC<Props> = () => {
     <div className="App">
       <h1>Создание новости</h1>
       <h2>Заголовок</h2>
-      <JoditEditor
-        ref={editor}
-        value={title}
-        // config={config}
-        // onBlur={(event) => setContent(event)}
-        onChange={(newContent) => setTitle(newContent)}
-      />
+      <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={3} />
       <h2>Teкст новости</h2>
       <JoditEditor
         ref={editor}
@@ -48,7 +42,7 @@ export const CreateNewsPage: React.FC<Props> = () => {
             })
           )
         }}>
-        <Link to="/">
+        <Link to="/news">
           Создать
         </Link>
       </Button>
