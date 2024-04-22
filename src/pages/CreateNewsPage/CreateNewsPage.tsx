@@ -32,7 +32,7 @@ export const CreateNewsPage: React.FC<Props> = () => {
         value={content}
         // config={config}
         // onBlur={(event) => setContent(event)}
-        onChange={(newContent) => setContent(newContent)}
+        onBlur={(newContent) => setContent(newContent)}
       />
       {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
       <Button variant="warning" size="lg" onClick={() => {

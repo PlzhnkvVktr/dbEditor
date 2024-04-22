@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import newsReducer from "./reducers/NewsReducer";
 import productReducer from "./reducers/ProductReducer";
-import productReducerByCategory from "./reducers/ProductByCategoryReducer";
+import productByCategoryReducer from "./reducers/ProductByCategoryReducer";
 import productItemReducer from "./reducers/ProductItemReducer";
 import newsItemReducer from "./reducers/NewsItemReducer";
 import imageReducer from "./reducers/ImageReducer";
@@ -9,7 +9,7 @@ import imageReducer from "./reducers/ImageReducer";
 const rootReducer = combineReducers({
     newsReducer,
     productReducer,
-    productReducerByCategory,
+    productByCategoryReducer,
     productItemReducer,
     newsItemReducer,
     imageReducer

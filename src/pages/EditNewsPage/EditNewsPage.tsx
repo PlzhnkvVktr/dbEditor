@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import s from "./EditNewsPage.module.css"
 import JoditEditor from 'jodit-react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchNewsItem, postNews, updateNews } from '../../store/reducers/ActionCreators';
+import { Loader } from '../LoaderPage/LoaderPage';
 
 type Props = {
 
@@ -16,17 +17,15 @@ export const EditNewsPage: React.FC<Props> = () => {
   const dispatch = useAppDispatch()
   const {newsItem, isLoading, error} = useAppSelector(state => state.newsItemReducer)
   const editor = useRef(null)
-  const [content, setContent] = useState(newsItem.message)
-  const [title, setTitle] = useState(newsItem.title)
+  const [content, setContent] = useState("")
+  const [title, setTitle] = useState("")
 
   useEffect(() => {
     dispatch(fetchNewsItem(params.id as string))
   }, [])
 
-  
-  if (isLoading) {
-    <h1>Loading...</h1>
-  } 
+  if (isLoading) return <Loader />
+  if (error) return <h1>Error</h1> 
 
   return (
     <div>
