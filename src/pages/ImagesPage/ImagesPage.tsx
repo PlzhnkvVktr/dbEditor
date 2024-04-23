@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import s from './ImagesPage.module.css'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { addImage, deleteImage, fetchImages } from '../../store/reducers/ActionCreators'
@@ -13,14 +13,38 @@ export const ImagesPage: React.FC<Props> = () => {
   const dispatch = useAppDispatch()
   const {images, isLoading, error} = useAppSelector(state => state.imageReducer)
   const [selectedFile, setSelectedFile] = useState<File>()
+  const filePicker = useRef<any>(null)
+  const [valueInput, setValueInput] = useState('')
 
-  // const formData = new FormData()
+	const filteredImages = images.filter(e => 
+		e.src.toLowerCase().includes(valueInput.toLowerCase())
+	)
 
+  const handlerInput = () => {
+    filePicker.current.click()
+  }
+
+
+  
   const handleChange = (event: { target: { files: any } }) => {
     setSelectedFile(event.target.files[0])
     console.log(event.target.files[0])
   }
 
+  const copyTextToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      console.log('Текст успешно скопирован в буфер обмена!');
+    } catch (err) {
+      console.error('Ошибка:', err);
+    }
+  }
+
+  useEffect(() => {
+    if (selectedFile?.name) {
+      dispatch(addImage(selectedFile))
+    }
+  }, [selectedFile?.name])
 
   useEffect(() => {
     dispatch(fetchImages())
@@ -31,25 +55,23 @@ export const ImagesPage: React.FC<Props> = () => {
         <input 
           className={s.file_input} 
           type="file" 
+          ref={filePicker}
           // accept=".png"
           onChange={handleChange} 
         />
-        <Button 
-          variant="outline-primary" 
-          size="lg"
-          onClick={() => {
-            dispatch(addImage(selectedFile))
-          }}
-        >
-          Добавить
-        </Button>
-        <p>{selectedFile?.name}</p>
+          <div className={s.searchContainer}>
+			    	<form className={s.searchForm}>
+			    		<input
+			    			type="text" 
+			    			placeholder="Введите название"
+			    			onChange={(e) => setValueInput(e.target.value)}
+			    		/>
+			    	</form>
+			    </div>
         <div className={s.images_container}>
+          <button className='add_item' onClick={() => handlerInput()}>+</button>
           {
-            images.map((item, key) => 
-              // <div className={s.image_item} key={key}>
-              //   <img src={"http://127.0.0.1:8080/" + item.src} />
-              // </div>
+            filteredImages.map((item, key) => 
               <Card key={key} style={{ width: '18rem' }}>
                 <Card.Img variant="top" src={"http://127.0.0.1:8080/" + item.src} />
                 <Card.Body>
@@ -58,10 +80,16 @@ export const ImagesPage: React.FC<Props> = () => {
                     variant="danger" 
                     onClick={() => {
                       dispatch(deleteImage(item.id))
-                      // dispatch(addImage1(item.id))
                     }
                     }
                   >Удалить</Button>
+                  <Button 
+                    variant="primary" 
+                    onClick={() => {
+                      copyTextToClipboard(`http://127.0.0.1:8080/${item.src}`)
+                    }
+                    }
+                  >Копировать ссылку</Button>
                 </Card.Body>
               </Card>
             )

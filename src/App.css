@@ -63,6 +63,7 @@ main {
   display: inline-block;
   font-size: 30px;
   border-radius: 70%;
+  z-index: 5;
 
   a {
     text-decoration: none;
