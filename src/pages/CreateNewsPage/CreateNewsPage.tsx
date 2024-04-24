@@ -22,7 +22,7 @@ export const CreateNewsPage: React.FC<Props> = () => {
 
 
   return (
-    <div className="App">
+    <main>
       <h1>Создание новости</h1>
       <h2>Заголовок</h2>
       <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={3} />
@@ -46,6 +46,6 @@ export const CreateNewsPage: React.FC<Props> = () => {
           Создать
         </Link>
       </Button>
-    </div>
+    </main>
   )
 }

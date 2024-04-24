@@ -18,6 +18,7 @@ export const Header: React.FC<Props> = () => {
                 <Nav.Link href="/products">Продукция</Nav.Link>
                 <Nav.Link href="/images">Картинки</Nav.Link>
                 <Nav.Link href="/slider">Слайдер</Nav.Link>
+                <Nav.Link href="/pages">Страницы</Nav.Link>
               </Nav>
             </Container>
         </Navbar>

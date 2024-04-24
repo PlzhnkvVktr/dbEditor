@@ -10,6 +10,8 @@ import { CreateNewsPage } from '../../pages/CreateNewsPage/CreateNewsPage';
 import { EditNewsPage } from '../../pages/EditNewsPage/EditNewsPage';
 import { ImagesPage } from '../../pages/ImagesPage/ImagesPage';
 import { CreateProductPage } from '../../pages/CreateProductPage/CreateProductPage';
+import { PagesListEditorPage } from '../../pages/PagesListEditorPage/PagesListEditorPage';
+import { CreatePageEditor } from '../../pages/CreatePageEditor/CreatePageEditor';
 
 type Props = {
 
@@ -18,17 +20,20 @@ type Props = {
 export const AppRoutes: React.FC<Props> = () => {
 
     return (
-      <main>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/news" element={<NewsListPage />} />
-        <Route path="/news/:id" element={<NewsPage />} />
-        <Route path="/news-create" element={<CreateNewsPage />} />
-        <Route path="/news-edit/:id" element={<EditNewsPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/product-create" element={<CreateProductPage />} />
-        <Route path="/slider" element={<SliderPage />} />
-        <Route path="/images" element={<ImagesPage />} />
-      </Routes></main>
+      <>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/news" element={<NewsListPage />} />
+          <Route path="/news/:id" element={<NewsPage />} />
+          <Route path="/news-create" element={<CreateNewsPage />} />
+          <Route path="/news-edit/:id" element={<EditNewsPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product-create" element={<CreateProductPage />} />
+          <Route path="/slider" element={<SliderPage />} />
+          <Route path="/images" element={<ImagesPage />} />
+          <Route path="/pages" element={<PagesListEditorPage />} />
+          <Route path="/page-create" element={<CreatePageEditor />} />
+        </Routes>
+      </>
     )
 }
