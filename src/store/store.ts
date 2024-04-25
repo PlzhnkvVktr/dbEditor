@@ -6,6 +6,7 @@ import productItemReducer from "./reducers/ProductItemReducer";
 import newsItemReducer from "./reducers/NewsItemReducer";
 import imageReducer from "./reducers/ImageReducer";
 import pageReducer from "./reducers/PagesReducer";
+import pageByIdReducer from "./reducers/PageByIdReducer";
 
 const rootReducer = combineReducers({
     newsReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     productItemReducer,
     newsItemReducer,
     imageReducer,
-    pageReducer
+    pageReducer,
+    pageByIdReducer
 })
 
 export const setupStore = () => {

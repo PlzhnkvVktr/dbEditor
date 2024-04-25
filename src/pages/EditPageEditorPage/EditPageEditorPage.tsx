@@ -1,23 +1,32 @@
 import JoditEditor from 'jodit-react'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useAppDispatch } from '../../hooks/redux'
-import { postPage } from '../../store/reducers/ActionCreators'
-import s from "./CreatePageEditor.module.css"
-import { height } from '@mui/system'
+import { Link, useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { fetchPageById, postPage } from '../../store/reducers/ActionCreators'
+import s from "./EditPageEditorPage.module.css"
 
 type Props = {
-
 }
 
-export const CreatePageEditor: React.FC<Props> = () => {
+export const EditPageEditorPage: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
+    const params = useParams()
     const editor = useRef(null)
-    const name = useState("")
-    const content = useState("")
-    const isVisibility = useState(false)
+    const {page, isLoading, error} = useAppSelector(state => state.pageByIdReducer)
+    const name = useState<string>("")
+    const content = useState<string>("")
+    const isVisibility = useState<boolean>(false)
+
+    useEffect(() => {
+        const getData = async () => {
+            dispatch(fetchPageById(params.id as string))
+            name[1](page.name)
+            content[1](page.html)
+        }
+        getData()
+    }, [])
 
     const handleChange = () => {
         isVisibility[1](!isVisibility[0]);

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { Loader } from '../LoaderPage/LoaderPage'
 import { ListItem } from '../../components/ListItem/ListItem'
 import { IPage } from '../../models/IPage'
 import { Link } from 'react-router-dom'
+import { fetchPages } from '../../store/reducers/ActionCreators'
 
 type Props = {
 
@@ -14,6 +15,9 @@ export const PagesListEditorPage: React.FC<Props> = () => {
   const dispatch = useAppDispatch()
   const {pages, isLoading, error} = useAppSelector(state => state.pageReducer)
 
+  useEffect(() => {
+    dispatch(fetchPages())
+  }, [])
 
   if (isLoading) return <Loader />
   if (error) return <h1>{error}</h1>
@@ -23,7 +27,7 @@ export const PagesListEditorPage: React.FC<Props> = () => {
         {pages.map((item, key) => 
           <ListItem
             item={item as IPage}
-            path='pages'
+            path='page'
             key={key}
           />
         )}

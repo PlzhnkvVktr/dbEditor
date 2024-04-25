@@ -12,6 +12,8 @@ import { ImagesPage } from '../../pages/ImagesPage/ImagesPage';
 import { CreateProductPage } from '../../pages/CreateProductPage/CreateProductPage';
 import { PagesListEditorPage } from '../../pages/PagesListEditorPage/PagesListEditorPage';
 import { CreatePageEditor } from '../../pages/CreatePageEditor/CreatePageEditor';
+import { EditPageEditorPage } from '../../pages/EditPageEditorPage/EditPageEditorPage';
+import { IPage } from '../../models/IPage';
 
 type Props = {
 
@@ -33,6 +35,7 @@ export const AppRoutes: React.FC<Props> = () => {
           <Route path="/images" element={<ImagesPage />} />
           <Route path="/pages" element={<PagesListEditorPage />} />
           <Route path="/page-create" element={<CreatePageEditor />} />
+          <Route path="/page-edit" element={<EditPageEditorPage />} />
         </Routes>
       </>
     )

@@ -19,6 +19,7 @@ export const EditNewsPage: React.FC<Props> = () => {
   const editor = useRef(null)
   const [content, setContent] = useState("")
   const [title, setTitle] = useState("")
+  
 
   useEffect(() => {
     dispatch(fetchNewsItem(params.id as string))

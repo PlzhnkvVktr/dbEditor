@@ -14,6 +14,7 @@ import { IImage } from "../../models/Image";
 import { pageSlice } from "./PagesReducer";
 import { IPage } from "../../models/IPage";
 import { IPageRequest } from "../../models/IPageRequest";
+import { pageByIdSlice } from "./PageByIdReducer";
 
 
 
@@ -131,5 +132,15 @@ export const postPage = (page: IPageRequest) => async(dispatch: AppDispatch) => 
         await axios.post("http://127.0.0.1:8080/pages", {...page})
     } catch (e: any) {
         console.log("net")
+    }
+}
+ 
+export const fetchPageById = (id: string) => async(dispatch: AppDispatch) => {
+    try {
+        dispatch(pageByIdSlice.actions.pageFetching())
+        const response = await axios.get<IPage>("http://127.0.0.1:8080/pages/" + id)
+        dispatch(pageByIdSlice.actions.pageFetchingSuccess(response.data))
+    } catch (e: any) {
+        dispatch(pageByIdSlice.actions.pageFetchingError(e.message))
     }
 }
