@@ -17,6 +17,7 @@ export const CreatePageEditor: React.FC<Props> = () => {
     const editor = useRef(null)
     const name = useState("")
     const content = useState("")
+    const path = useState("")
     const isVisibility = useState(false)
 
     const handleChange = () => {
@@ -28,6 +29,8 @@ export const CreatePageEditor: React.FC<Props> = () => {
         <h1>Создание новости</h1>
         <h2>Заголовок</h2>
         <Form.Control value={name[0]} onChange={(e) => name[1](e.target.value)} as="textarea" rows={3} />
+        <h2>Путь</h2>
+        <Form.Control value={path[0]} onChange={(e) => path[1](e.target.value)} as="textarea" rows={1} />
         <Form className={s.custom_switch}>
             <Form.Label>Показывать страницу</Form.Label>
             <Form.Check
@@ -47,6 +50,7 @@ export const CreatePageEditor: React.FC<Props> = () => {
             dispatch(postPage({
                 name: name[0],
                 html: content[0],
+                path: path[0],
                 visibility: isVisibility[0]
               })
             )

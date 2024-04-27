@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { fetchProductsByCategory } from '../store/reducers/ActionCreators'
+import { deleteProduct, fetchProductsByCategory } from '../store/reducers/ActionCreators'
 import { Link } from 'react-router-dom'
 import { ListItem } from '../components/ListItem/ListItem'
 import { IProduct } from '../models/IProduct'
@@ -42,6 +42,7 @@ export const ProductsPage: React.FC<Props> = () => {
             item={item as IProduct} 
             path="products" 
             key={key} 
+            action={() => dispatch(deleteProduct(item.id))}
           />
         )}
         <button className='add_item'>

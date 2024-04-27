@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { deleteNews, fetchNews } from '../../store/reducers/ActionCreators'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { Link } from 'react-router-dom'
@@ -16,26 +16,10 @@ export const NewsListPage: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
     const {news, isLoading, error} = useAppSelector(state => state.newsReducer)
-    const [loading, setLoading] = useState(false)
-    const [filter, setFilter] = useState(news.length)
-
-    // useEffect(() => {
-    //   if (!loading && !news.length) { 
-    //     setLoading(true)
-    //     dispatch(fetchNews())
-    //   }
-    // }, [loading, news])
-    
-    // useEffect(() => {
-    //   return () => {
-    //     setLoading(false)
-    //   }
-    // }, [])
 
     useEffect(() => {
       dispatch(fetchNews())
-      setFilter(news.length)
-    }, [filter])
+    }, [])
 
     if (isLoading) return <Loader />
     if (error) return <h1>{error}</h1>
@@ -48,6 +32,7 @@ export const NewsListPage: React.FC<Props> = () => {
               item={item as INews}
               path='news'
               key={key}
+              action={() => dispatch(deleteNews(item.id))}
             />
         )}
         <button className='add_item'>

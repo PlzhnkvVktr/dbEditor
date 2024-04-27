@@ -3,6 +3,7 @@ import s from './ImagesPage.module.css'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { addImage, deleteImage, fetchImages } from '../../store/reducers/ActionCreators'
 import { Button, Card } from 'react-bootstrap'
+import { API_URL } from '../../const/const'
 
 type Props = {
 
@@ -73,7 +74,7 @@ export const ImagesPage: React.FC<Props> = () => {
           {
             filteredImages.map((item, key) => 
               <Card key={key} style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={"http://127.0.0.1:8080/" + item.src} />
+                <Card.Img variant="top" src={API_URL + item.src} />
                 <Card.Body>
                   <Card.Title>{item.src.substr(7)}</Card.Title>
                   <Button 
@@ -86,7 +87,7 @@ export const ImagesPage: React.FC<Props> = () => {
                   <Button 
                     variant="primary" 
                     onClick={() => {
-                      copyTextToClipboard(`http://127.0.0.1:8080/${item.src}`)
+                      copyTextToClipboard(`${API_URL}${item.src}`)
                     }
                     }
                   >Копировать ссылку</Button>

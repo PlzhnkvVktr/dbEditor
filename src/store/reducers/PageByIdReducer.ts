@@ -12,6 +12,7 @@ const initialState: PageByNameState = {
         id: "",
         name: "",
         html: "",
+        path: "",
         visibility: false,
     },
     isLoading: false,

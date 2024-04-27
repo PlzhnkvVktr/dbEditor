@@ -30,12 +30,13 @@ export const AppRoutes: React.FC<Props> = () => {
           <Route path="/news-create" element={<CreateNewsPage />} />
           <Route path="/news-edit/:id" element={<EditNewsPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product-edit" element={<CreateProductPage />} />
           <Route path="/product-create" element={<CreateProductPage />} />
           <Route path="/slider" element={<SliderPage />} />
           <Route path="/images" element={<ImagesPage />} />
           <Route path="/pages" element={<PagesListEditorPage />} />
           <Route path="/page-create" element={<CreatePageEditor />} />
-          <Route path="/page-edit" element={<EditPageEditorPage />} />
+          <Route path="/page-edit/:id" element={<EditPageEditorPage />} />
         </Routes>
       </>
     )

@@ -4,7 +4,7 @@ import { Loader } from '../LoaderPage/LoaderPage'
 import { ListItem } from '../../components/ListItem/ListItem'
 import { IPage } from '../../models/IPage'
 import { Link } from 'react-router-dom'
-import { fetchPages } from '../../store/reducers/ActionCreators'
+import { deletePage, fetchPages } from '../../store/reducers/ActionCreators'
 
 type Props = {
 
@@ -29,6 +29,7 @@ export const PagesListEditorPage: React.FC<Props> = () => {
             item={item as IPage}
             path='page'
             key={key}
+            action={() => dispatch(deletePage(item.id))}
           />
         )}
         <button className='add_item'>

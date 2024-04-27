@@ -17,13 +17,17 @@ export const EditNewsPage: React.FC<Props> = () => {
   const dispatch = useAppDispatch()
   const {newsItem, isLoading, error} = useAppSelector(state => state.newsItemReducer)
   const editor = useRef(null)
-  const [content, setContent] = useState("")
+  const content = useState("")
   const [title, setTitle] = useState("")
-  
 
   useEffect(() => {
     dispatch(fetchNewsItem(params.id as string))
   }, [])
+
+  useEffect(() => {
+    content[1](newsItem.message)
+    setTitle(newsItem.title)
+  }, [isLoading])
 
   if (isLoading) return <Loader />
   if (error) return <h1>Error</h1> 
@@ -36,16 +40,16 @@ export const EditNewsPage: React.FC<Props> = () => {
       <h2>Teкст новости</h2>
       <JoditEditor
         ref={editor}
-        value={content}
+        value={content[0]}
         // config={config}
         // onBlur={(event) => setContent(event)}
-        onChange={(newContent) => setContent(newContent)}
+        onChange={(newContent) => content[1](newContent)}
       />
       {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
       <Button variant="outline-primary" size="lg" onClick={() => {
           dispatch(updateNews(params.id as string, {
               title: title,
-              message: content
+              message: content[0]
             })
           )
         }}>
