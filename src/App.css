@@ -19,6 +19,11 @@
   }
 }
 
+.jodit-editor {
+  width: 100%;
+  margin: 30px;
+}
+
 /* .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -33,6 +38,10 @@
 .App-link {
   color: #61dafb;
 } */
+
+.images_alert {
+  height: 100%;
+}
 
 @keyframes App-logo-spin {
   from {

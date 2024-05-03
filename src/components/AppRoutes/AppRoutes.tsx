@@ -14,6 +14,7 @@ import { PagesListEditorPage } from '../../pages/PagesListEditorPage/PagesListEd
 import { CreatePageEditor } from '../../pages/CreatePageEditor/CreatePageEditor';
 import { EditPageEditorPage } from '../../pages/EditPageEditorPage/EditPageEditorPage';
 import { IPage } from '../../models/IPage';
+import { EditProductPage } from '../../pages/EditProductPage/EditProductPage';
 
 type Props = {
 
@@ -30,7 +31,7 @@ export const AppRoutes: React.FC<Props> = () => {
           <Route path="/news-create" element={<CreateNewsPage />} />
           <Route path="/news-edit/:id" element={<EditNewsPage />} />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product-edit" element={<CreateProductPage />} />
+          <Route path="/products-edit/:id" element={<EditProductPage />} />
           <Route path="/product-create" element={<CreateProductPage />} />
           <Route path="/slider" element={<SliderPage />} />
           <Route path="/images" element={<ImagesPage />} />

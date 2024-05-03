@@ -16,6 +16,7 @@ import { IPage } from "../../models/IPage";
 import { IPageRequest } from "../../models/IPageRequest";
 import { pageByIdSlice } from "./PageByIdReducer";
 import { API_URL } from "../../const/const";
+import { IProductRequest } from "../../models/IProductRequest";
 
 // get
 
@@ -108,6 +109,14 @@ export const postNews = (news: INewsRequest) => async (dispatch: AppDispatch) =>
         console.log("net")
     }
     
+}
+
+export const postProduct = (product: IProductRequest) => async(dispatch: AppDispatch) => {
+    try {
+        await axios.post(API_URL + "products", {...product})
+    } catch (e: any) {
+        console.log("net")
+    }
 }
 
 export const addImage = (file: any) => async (dispatch: AppDispatch) =>  {
