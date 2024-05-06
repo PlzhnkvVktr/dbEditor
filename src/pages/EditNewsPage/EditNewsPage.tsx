@@ -6,6 +6,8 @@ import { Button, Form } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { fetchNewsItem, postNews, updateNews } from '../../store/reducers/ActionCreators';
 import { Loader } from '../LoaderPage/LoaderPage';
+import { RichText } from '../../components/RichText/RichText';
+import { ButtonLink } from '../../components/ButtonLink/ButtonLink';
 
 type Props = {
 
@@ -18,7 +20,7 @@ export const EditNewsPage: React.FC<Props> = () => {
   const {newsItem, isLoading, error} = useAppSelector(state => state.newsItemReducer)
   const editor = useRef(null)
   const content = useState("")
-  const [title, setTitle] = useState("")
+  const title = useState("")
 
   useEffect(() => {
     dispatch(fetchNewsItem(params.id as string))
@@ -26,7 +28,7 @@ export const EditNewsPage: React.FC<Props> = () => {
 
   useEffect(() => {
     content[1](newsItem.message)
-    setTitle(newsItem.title)
+    title[1](newsItem.title)
   }, [isLoading])
 
   if (isLoading) return <Loader />
@@ -36,27 +38,21 @@ export const EditNewsPage: React.FC<Props> = () => {
     <div>
       <h1>Создание новости</h1>
       <h2>Заголовок</h2>
-      <Form.Control value={title} onChange={(e) => setTitle(e.target.value)} as="textarea" rows={3} />
+      <Form.Control value={title[0]} onChange={(e) => title[1](e.target.value)} as="textarea" rows={3} />
       <h2>Teкст новости</h2>
-      <JoditEditor
-        ref={editor}
-        value={content[0]}
-        // config={config}
-        // onBlur={(event) => setContent(event)}
-        onChange={(newContent) => content[1](newContent)}
-      />
-      {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
-      <Button variant="outline-primary" size="lg" onClick={() => {
-          dispatch(updateNews(params.id as string, {
-              title: title,
+      <RichText value={content} />
+      <ButtonLink
+          text='Редактировать'
+          link='/news'
+          disabled={title[0] == ""}
+          onClick={() =>
+            dispatch(updateNews(params.id as string, {
+              title: title[0],
               message: content[0]
             })
-          )
-        }}>
-        <Link to="/news">
-          Редактировать
-        </Link>
-      </Button>
+            )
+          }
+        />
     </div>
   )
 }

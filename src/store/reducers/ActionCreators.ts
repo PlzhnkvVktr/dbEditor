@@ -184,7 +184,15 @@ export const updatePage = (id: string, page: IPageRequest) => async (dispatch: A
 
 export const updateNews = (id: string, news: INewsRequest) => async (dispatch: AppDispatch) => {
     try {
-        await axios.put("/news/" + id,  {...news})
+        await axios.put(API_URL + "news/" + id,  {...news})
+    } catch (e: any) {
+        console.log("net")
+    }
+}
+
+export const updateProduct = (id: string, product: IProductRequest) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.put(API_URL + "products/" + id,  {...product})
     } catch (e: any) {
         console.log("net")
     }

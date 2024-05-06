@@ -6,6 +6,8 @@ import { useAppDispatch } from '../../hooks/redux'
 import { postPage } from '../../store/reducers/ActionCreators'
 import s from "./CreatePageEditor.module.css"
 import { height } from '@mui/system'
+import { RichText } from '../../components/RichText/RichText'
+import { ButtonLink } from '../../components/ButtonLink/ButtonLink'
 
 type Props = {
 
@@ -14,7 +16,6 @@ type Props = {
 export const CreatePageEditor: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
-    const editor = useRef(null)
     const name = useState("")
     const content = useState("")
     const path = useState("")
@@ -32,33 +33,30 @@ export const CreatePageEditor: React.FC<Props> = () => {
         <h2>Путь</h2>
         <Form.Control value={path[0]} onChange={(e) => path[1](e.target.value)} as="textarea" rows={1} />
         <Form className={s.custom_switch}>
-            <Form.Label>Показывать страницу</Form.Label>
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              checked={isVisibility[0]}
-              onChange={() => handleChange()}
-            />
+          <Form.Label>Показывать страницу</Form.Label>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            checked={isVisibility[0]}
+            onChange={() => handleChange()}
+          />
         </Form>
         <h2>Teкст новости</h2>
-        <JoditEditor
-          ref={editor}
-          value={content[0]}
-          onBlur={(newContent) => content[1](newContent)}
-        />
-        <Button variant="warning" size="lg" onClick={() => {
-            dispatch(postPage({
+        <RichText value={content} />
+        <ButtonLink
+            text='Создать'
+            link='/pages'
+            disabled={name[0] == ""}
+            onClick={() =>
+              dispatch(postPage({
                 name: name[0],
                 html: content[0],
                 path: path[0],
                 visibility: isVisibility[0]
               })
-            )
-          }}>
-          <Link to="/pages">
-            Создать
-          </Link>
-        </Button>
+              )
+            }
+          />
       </main>
     )
 }

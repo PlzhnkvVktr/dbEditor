@@ -11,6 +11,7 @@ import { lang } from 'jodit/esm/core/constants';
 import { postProduct } from '../../store/reducers/ActionCreators';
 import { RichText } from '../../components/RichText/RichText';
 import { ImagesPage } from '../ImagesPage/ImagesPage';
+import { ButtonLink } from '../../components/ButtonLink/ButtonLink';
 
 type Props = {
 
@@ -80,7 +81,11 @@ export const CreateProductPage: React.FC<Props> = () => {
               <RichText value={additionally} />        
             </Tab>
           </Tabs>
-            <Button disabled={name[0] == ""} variant="warning" size="lg" onClick={() => {
+          <ButtonLink
+            text='Создать'
+            link='/products'
+            disabled={name[0] == ""}
+            onClick={() =>
               dispatch(postProduct({
                   name: name[0],
                   card_img: card_img[0],
@@ -93,11 +98,8 @@ export const CreateProductPage: React.FC<Props> = () => {
                   images: []
                 })
               )
-            }}>
-              <Link to="/products">
-                  Создать
-              </Link>
-            </Button>
+            }
+          />
         </div> 
       }
     </main>

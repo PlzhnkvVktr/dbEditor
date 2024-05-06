@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { fetchPageById, postPage, updatePage } from '../../store/reducers/ActionCreators'
 import s from "./EditPageEditorPage.module.css"
 import { Loader } from '../LoaderPage/LoaderPage'
+import { RichText } from '../../components/RichText/RichText'
+import { ButtonLink } from '../../components/ButtonLink/ButtonLink'
 
 type Props = {
 }
@@ -56,24 +58,20 @@ export const EditPageEditorPage: React.FC<Props> = () => {
             />
         </Form>
         <h2>Teкст новости</h2>
-        <JoditEditor
-          ref={editor}
-          value={content[0]}
-          onBlur={(newContent) => content[1](newContent)}
+        <RichText value={content} />
+        <ButtonLink
+          text='Редактировать'
+          link='/pages'
+          disabled={name[0] == ""}
+          onClick={() =>
+            updatePage(page.id, {
+              name: name[0],
+              html: content[0],
+              path: path[0],
+              visibility: isVisibility[0]
+            })
+          }
         />
-        <Button variant="warning" size="lg" onClick={() => {
-            dispatch(updatePage(page.id, {
-                name: name[0],
-                html: content[0],
-                path: path[0],
-                visibility: isVisibility[0]
-              })
-            )
-          }}>
-          <Link to="/pages">
-            Редактировать
-          </Link>
-        </Button>
       </main>
     )
 }

@@ -1,5 +1,6 @@
 import { height } from '@mui/system'
 import JoditEditor from 'jodit-react'
+import { placeholder } from 'jodit/esm/plugins/placeholder/placeholder'
 import React, { useRef } from 'react'
 
 type Props = {
@@ -12,6 +13,7 @@ export const RichText: React.FC<Props> = ({value}) => {
     const config = {
         language: 'ru',
         toolbarAdaptive: false,
+        placeholder: ""
     }
 
     return (

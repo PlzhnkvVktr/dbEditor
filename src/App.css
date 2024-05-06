@@ -42,6 +42,13 @@
 .images_alert {
   height: 100%;
 }
+.button_link {
+  a { 
+    size: 100%;
+    color: white;
+    text-decoration: none;
+  }
+}
 
 @keyframes App-logo-spin {
   from {
