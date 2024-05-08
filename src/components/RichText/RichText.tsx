@@ -1,7 +1,8 @@
 import { height } from '@mui/system'
 import JoditEditor from 'jodit-react'
 import { placeholder } from 'jodit/esm/plugins/placeholder/placeholder'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
+import { cursorTo } from 'readline'
 
 type Props = {
     value: [string, React.Dispatch<React.SetStateAction<string>>]
@@ -13,7 +14,8 @@ export const RichText: React.FC<Props> = ({value}) => {
     const config = {
         language: 'ru',
         toolbarAdaptive: false,
-        placeholder: ""
+        placeholder: "",
+        minWidth: 800
     }
 
     return (
@@ -22,7 +24,7 @@ export const RichText: React.FC<Props> = ({value}) => {
             ref={editor}
             config={config}
             value={value[0]}
-            onBlur={(newContent) => value[1](newContent)}
+            onBlur={(newContent) => value[1](newContent) }
         />
     )
 }

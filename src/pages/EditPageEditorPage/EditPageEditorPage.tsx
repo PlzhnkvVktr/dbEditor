@@ -64,12 +64,12 @@ export const EditPageEditorPage: React.FC<Props> = () => {
           link='/pages'
           disabled={name[0] == ""}
           onClick={() =>
-            updatePage(page.id, {
+            dispatch(updatePage(page.id, {
               name: name[0],
               html: content[0],
               path: path[0],
               visibility: isVisibility[0]
-            })
+            }))
           }
         />
       </main>
