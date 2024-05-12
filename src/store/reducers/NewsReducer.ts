@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { INews } from "../../models/INews";
-import { fetchNews } from "./ActionCreators";
-import { INewsRequest } from "../../models/INewsRequest";
 
 interface NewsState {
     news: INews[]
@@ -9,11 +7,6 @@ interface NewsState {
     error: string
 }
 
-interface AddNewsState {
-    news: INewsRequest
-    isLoading: boolean
-    error: string
-}
 
 const initialState: NewsState = {
     news: [],
@@ -31,17 +24,6 @@ export const addNewsSlice = createSlice({
     }
   }
 })
-
-// export const deleteNewsSlice = createSlice({
-//     name: 'add-news',
-//     initialState,
-//     reducers: {
-//       addNews: (state, action: PayloadAction<INews>) => {
-//         state.news.(action.payload)
-      
-//     }
-//   }
-// })
 
 export const newsSlice = createSlice({
     name: 'news',

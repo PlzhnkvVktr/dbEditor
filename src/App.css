@@ -24,6 +24,11 @@
   margin: 30px;
 }
 
+.add_card_img {
+  width: 250px;
+  height: 250px;
+}
+
 /* .App-header {
   background-color: #282c34;
   min-height: 100vh;

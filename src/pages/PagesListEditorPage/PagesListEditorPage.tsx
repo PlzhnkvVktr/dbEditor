@@ -15,6 +15,11 @@ export const PagesListEditorPage: React.FC<Props> = () => {
   const dispatch = useAppDispatch()
   const {pages, isLoading, error} = useAppSelector(state => state.pageReducer)
 
+  const deleteItem = async (id: string) => {
+    await dispatch(deletePage(id))
+    await dispatch(fetchPages())
+  }
+
   useEffect(() => {
     dispatch(fetchPages())
   }, [])
@@ -29,7 +34,7 @@ export const PagesListEditorPage: React.FC<Props> = () => {
             item={item as IPage}
             path='page'
             key={key}
-            action={() => dispatch(deletePage(item.id))}
+            action={() => deleteItem(item.id)}
           />
         )}
         <button className='add_item'>

@@ -25,7 +25,10 @@ export const ImagesPage: React.FC<Props> = () => {
     filePicker.current.click()
   }
 
-
+  const deleteItem = async (id: string) => {
+    await dispatch(deleteImage(id))
+    await dispatch(fetchImages())
+  }
   
   const handleChange = (event: { target: { files: any } }) => {
     setSelectedFile(event.target.files[0])
@@ -79,10 +82,7 @@ export const ImagesPage: React.FC<Props> = () => {
                   <Card.Title>{item.src.substr(7)}</Card.Title>
                   <Button 
                     variant="danger" 
-                    onClick={() => {
-                      dispatch(deleteImage(item.id))
-                    }
-                    }
+                    onClick={() => deleteItem(item.id)}
                   >Удалить</Button>
                   <Button 
                     variant="primary" 

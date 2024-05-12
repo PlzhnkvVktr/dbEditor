@@ -61,7 +61,7 @@ export const CreateProductPage: React.FC<Props> = () => {
           >
             <Tab eventKey="home" title="Картинка продукта">
               <div>
-                <Image src={card_img[0]} thumbnail />
+                <Image className="add_card_img" src={card_img[0]} thumbnail />
                 <div>
                   <input type='text' value={card_img[0]} onChange={handleChange} />
                   <Button onClick={() => setShow(true)}>{card_img[0] == "" ? "Добавить" : "Изменить"}</Button>

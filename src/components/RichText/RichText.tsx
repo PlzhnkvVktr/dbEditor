@@ -14,8 +14,7 @@ export const RichText: React.FC<Props> = ({value}) => {
     const config = {
         language: 'ru',
         toolbarAdaptive: false,
-        placeholder: "",
-        minWidth: 800
+        placeholder: ""
     }
 
     return (

@@ -17,6 +17,11 @@ export const NewsListPage: React.FC<Props> = () => {
     const dispatch = useAppDispatch()
     const {news, isLoading, error} = useAppSelector(state => state.newsReducer)
 
+    const deleteItem = async (id: string) => {
+      await dispatch(deleteNews(id))
+      await dispatch(fetchNews())
+    }
+
     useEffect(() => {
       dispatch(fetchNews())
     }, [])
@@ -32,7 +37,7 @@ export const NewsListPage: React.FC<Props> = () => {
               item={item as INews}
               path='news'
               key={key}
-              action={() => dispatch(deleteNews(item.id))}
+              action={() => deleteItem(item.id)}
             />
         )}
         <button className='add_item'>
