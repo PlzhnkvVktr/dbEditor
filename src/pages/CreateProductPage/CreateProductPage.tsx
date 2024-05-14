@@ -27,7 +27,8 @@ export const CreateProductPage: React.FC<Props> = () => {
   const characteristic = useState("")
   const specification = useState("")
   const additionally = useState("")
-  const categoty = useState('')
+  const category = useState('')
+  const subcategoty = useState('')
 
   const [show, setShow] = useState(false);
 
@@ -66,7 +67,11 @@ export const CreateProductPage: React.FC<Props> = () => {
                   <input type='text' value={card_img[0]} onChange={handleChange} />
                   <Button onClick={() => setShow(true)}>{card_img[0] == "" ? "Добавить" : "Изменить"}</Button>
                 </div>
-              </div>
+              </div>   
+              <h2 className={s.h2_style}>Категория</h2>
+              <Form.Control className={s.textarea_style} value={category[0]} onChange={(e) => category[1](e.target.value)} as="textarea" rows={1} />
+              <h2 className={s.h2_style}>Подкатегория</h2>
+              <Form.Control className={s.textarea_style} value={subcategoty[0]} onChange={(e) => subcategoty[1](e.target.value)} as="textarea" rows={1} />
             </Tab>
             <Tab eventKey="description" title="Описание">
               <RichText value={description} />
@@ -93,8 +98,8 @@ export const CreateProductPage: React.FC<Props> = () => {
                   characteristic: characteristic[0],
                   specification: specification[0],
                   additionally: additionally[0],
-                  category: 1,
-                  subcategory: 1,
+                  category: Number(category[0]),
+                  subcategory: Number(subcategoty[0]),
                   images: []
                 })
               )
