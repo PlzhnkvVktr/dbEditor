@@ -20,14 +20,15 @@ export const CreatePageEditor: React.FC<Props> = () => {
     const content = useState("")
     const path = useState("")
     const isVisibility = useState(false)
+    const isNavbar = useState(false)
 
-    const handleChange = () => {
-        isVisibility[1](!isVisibility[0]);
+    const handleChange = (state: [boolean, React.Dispatch<React.SetStateAction<boolean>>]) => {
+      state[1](!state[0]);
     }
   
     return (
       <main>
-        <h1>Создание новости</h1>
+        <h1>Создание страницы</h1>
         <h2>Заголовок</h2>
         <Form.Control value={name[0]} onChange={(e) => name[1](e.target.value)} as="textarea" rows={3} />
         <h2>Путь</h2>
@@ -38,7 +39,16 @@ export const CreatePageEditor: React.FC<Props> = () => {
             type="switch"
             id="custom-switch"
             checked={isVisibility[0]}
-            onChange={() => handleChange()}
+            onChange={() => handleChange(isVisibility)}
+          />
+        </Form>
+        <Form className={s.custom_switch}>
+          <Form.Label>Навбар</Form.Label>
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            checked={isNavbar[0]}
+            onChange={() => handleChange(isNavbar)}
           />
         </Form>
         <h2>Teкст новости</h2>
@@ -52,7 +62,8 @@ export const CreatePageEditor: React.FC<Props> = () => {
                 name: name[0],
                 html: content[0],
                 path: path[0],
-                visibility: isVisibility[0]
+                isVisibility: isVisibility[0],
+                isNavbar: isNavbar[0]
               })
               )
             }

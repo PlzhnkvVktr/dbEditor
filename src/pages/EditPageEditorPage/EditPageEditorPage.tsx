@@ -16,12 +16,12 @@ export const EditPageEditorPage: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
     const params = useParams()
-    const editor = useRef(null)
     const {page, isLoading, error} = useAppSelector(state => state.pageByIdReducer)
     const name = useState<string>("")
     const content = useState<string>("")
     const path = useState<string>("")
     const isVisibility = useState<boolean>(false)
+    const isNavbar = useState<boolean>(false)
 
     useEffect(() => {
       dispatch(fetchPageById(params.id as string))
@@ -31,11 +31,12 @@ export const EditPageEditorPage: React.FC<Props> = () => {
       name[1](page.name)
       content[1](page.html)
       path[1](page.path)
-      isVisibility[1](page.visibility)
+      isVisibility[1](page.isVisibility)
+      isNavbar[1](page.isNavbar)
     }, [isLoading])
 
-    const handleChange = () => {
-        isVisibility[1](!isVisibility[0]);
+    const handleChange = (state: [boolean, React.Dispatch<React.SetStateAction<boolean>>]) => {
+        state[1](!state[0]);
     }
   
     if (isLoading) return <Loader />
@@ -43,7 +44,7 @@ export const EditPageEditorPage: React.FC<Props> = () => {
 
     return (
       <main>
-        <h1>Создание новости</h1>
+        <h1>Редактирование страницы</h1>
         <h2>Заголовок</h2>
         <Form.Control value={name[0]} onChange={(e) => name[1](e.target.value)} as="textarea" rows={3} />
         <h2>Путь</h2>
@@ -54,7 +55,16 @@ export const EditPageEditorPage: React.FC<Props> = () => {
               type="switch"
               id="custom-switch"
               checked={isVisibility[0]}
-              onChange={() => handleChange()}
+              onChange={() => handleChange(isVisibility)}
+            />
+        </Form>
+        <Form className={s.custom_switch}>
+            <Form.Label>Навбар</Form.Label>
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              checked={isNavbar[0]}
+              onChange={() => handleChange(isNavbar)}
             />
         </Form>
         <h2>Teкст новости</h2>
@@ -68,7 +78,8 @@ export const EditPageEditorPage: React.FC<Props> = () => {
               name: name[0],
               html: content[0],
               path: path[0],
-              visibility: isVisibility[0]
+              isVisibility: isVisibility[0],
+              isNavbar: isNavbar[0]
             }))
           }
         />

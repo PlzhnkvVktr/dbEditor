@@ -52,7 +52,7 @@ export const ImagesPage: React.FC<Props> = () => {
 
   useEffect(() => {
     dispatch(fetchImages())
-  }, [])
+  }, [selectedFile?.name])
   
     return (
       <main>

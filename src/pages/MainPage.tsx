@@ -9,7 +9,7 @@ export const MainPage: React.FC<Props> = () => {
   
     return (
       <div>
-        dfgsdgsagf
+        <h1>Выберите категорию</h1>
       </div>
     )
 }
