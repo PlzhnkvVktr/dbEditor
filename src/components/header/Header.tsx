@@ -17,6 +17,7 @@ export const Header: React.FC<Props> = () => {
               <Nav className="me-auto">
                 <Nav.Link href="/news">Новости</Nav.Link>
                 <Nav.Link href="/products">Продукция</Nav.Link>
+                <Nav.Link href="/categories">Категории</Nav.Link>
                 <Nav.Link href="/images">Картинки</Nav.Link>
                 <Nav.Link href="/slider">Слайдер</Nav.Link>
                 <Nav.Link href="/pages">Страницы</Nav.Link>

@@ -6,7 +6,8 @@ export interface IProduct {
     characteristic: string
     specification: string
     additionally: string
-    category: number
-    subcategory: number
+    category: string
+    subcategory: string
+    modification: string
     images: Array<string>
 }

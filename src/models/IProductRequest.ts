@@ -1,11 +1,12 @@
 export interface IProductRequest {
-    name: string,
+    name: string
     card_img: string
-    description: string,
-    characteristic: string,
-    specification: string,
-    additionally: string,
-    category: number,
-    subcategory: number,
-    images: Array<string>,
+    description: string
+    characteristic: string
+    specification: string
+    additionally: string
+    category: string
+    subcategory: string
+    modification: string
+    images: Array<string>
 }

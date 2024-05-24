@@ -17,8 +17,21 @@ import { IPageRequest } from "../../models/IPageRequest";
 import { pageByIdSlice } from "./PageByIdReducer";
 import { API_URL } from "../../const/const";
 import { IProductRequest } from "../../models/IProductRequest";
+import { categorySlice } from "./CategoryReducer";
+import { ICategory } from "../../models/ICategory";
+import { ICategoryRequest } from "../../models/ICategoryRequest";
 
 // get
+
+export const fetchCategory = () => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(categorySlice.actions.categoryFetching())
+        const response = await axios.get<ICategory[]>(API_URL + "categories")
+        dispatch(categorySlice.actions.categoryFetchingSuccess(response.data))
+    } catch (e: any) {
+        dispatch(categorySlice.actions.categoryFetchingError(e.message))
+    }
+}
 
 export const fetchNews = () => async (dispatch: AppDispatch) => {
     try {
@@ -102,6 +115,14 @@ export const postPage = (page: IPageRequest) => async(dispatch: AppDispatch) => 
     }
 }
 
+export const postCategory = (categories: ICategoryRequest) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.post(API_URL + "categories", {...categories})
+    } catch (e: any) {
+        dispatch(categorySlice.actions.categoryFetchingError(e.message))
+    }
+}
+
 export const postNews = (news: INewsRequest) => async (dispatch: AppDispatch) => {
     try {
         await axios.post(API_URL + "news", {...news})
@@ -143,6 +164,14 @@ export const deletePage = (id: string) => async (dispatch: AppDispatch) => {
         await axios.delete(API_URL + "pages/" + id)
     } catch (e: any) {
         console.log("net")
+    }
+}
+
+export const deleteCategory = (id: string) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.delete(API_URL + "categories/" + id)
+    } catch (e: any) {
+        dispatch(categorySlice.actions.categoryFetchingError(e.message))
     }
 }
 

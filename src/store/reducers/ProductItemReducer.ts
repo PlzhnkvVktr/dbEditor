@@ -16,8 +16,9 @@ const initialState: ProductItemState = {
         characteristic: "",
         specification: "",
         additionally: "",
-        category: 0,
-        subcategory: 0,
+        category: "",
+        subcategory: "",
+        modification: "",
         images: []
     },
     isLoading: false,

@@ -28,7 +28,9 @@ export const EditProductPage: React.FC<Props> = () => {
   const characteristic = useState("")
   const specification = useState("")
   const additionally = useState("")
-  const categoty = useState<number>()
+  const category = useState("")
+  const subcategory = useState("")
+  const modification = useState("")
   const [show, setShow] = useState(false);
 
   const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -46,7 +48,9 @@ export const EditProductPage: React.FC<Props> = () => {
     characteristic[1](product.characteristic)
     specification[1](product.specification)
     additionally[1](product.additionally)
-    categoty[1](product.category)
+    category[1](product.category)
+    subcategory[1](product.subcategory)
+    modification[1](product.modification)
   }, [isLoading])
 
   if (isLoading) return <Loader />
@@ -110,8 +114,9 @@ export const EditProductPage: React.FC<Props> = () => {
                   characteristic: characteristic[0],
                   specification: specification[0],
                   additionally: additionally[0],
-                  category: 1,
-                  subcategory: 1,
+                  category: category[0],
+                  subcategory: subcategory[0],
+                  modification: modification[0],
                   images: []
                 })
               )

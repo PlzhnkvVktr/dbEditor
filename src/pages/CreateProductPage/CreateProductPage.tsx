@@ -29,6 +29,7 @@ export const CreateProductPage: React.FC<Props> = () => {
   const additionally = useState("")
   const category = useState('')
   const subcategoty = useState('')
+  const modification = useState('')
 
   const [show, setShow] = useState(false);
 
@@ -98,8 +99,9 @@ export const CreateProductPage: React.FC<Props> = () => {
                   characteristic: characteristic[0],
                   specification: specification[0],
                   additionally: additionally[0],
-                  category: Number(category[0]),
-                  subcategory: Number(subcategoty[0]),
+                  category: category[0],
+                  subcategory: subcategoty[0],
+                  modification: modification[0],
                   images: []
                 })
               )
