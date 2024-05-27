@@ -18,7 +18,6 @@ export const EditNewsPage: React.FC<Props> = () => {
   const params = useParams()
   const dispatch = useAppDispatch()
   const {newsItem, isLoading, error} = useAppSelector(state => state.newsItemReducer)
-  const editor = useRef(null)
   const content = useState("")
   const title = useState("")
 

@@ -20,6 +20,7 @@ import { IProductRequest } from "../../models/IProductRequest";
 import { categorySlice } from "./CategoryReducer";
 import { ICategory } from "../../models/ICategory";
 import { ICategoryRequest } from "../../models/ICategoryRequest";
+import { categoryByIdSlice } from "./CategoryByIdReducer";
 
 // get
 
@@ -32,6 +33,17 @@ export const fetchCategory = () => async (dispatch: AppDispatch) => {
         dispatch(categorySlice.actions.categoryFetchingError(e.message))
     }
 }
+
+export const fetchCategoryById = (id: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(categoryByIdSlice.actions.categoryByIdFetching())
+        const response = await axios.get<ICategory>(API_URL + "categories/" + id)
+        dispatch(categoryByIdSlice.actions.categoryByIdFetchingSuccess(response.data))
+    } catch (e: any) {
+        dispatch(categoryByIdSlice.actions.categoryByIdFetchingError(e.message))
+    }
+}
+
 
 export const fetchNews = () => async (dispatch: AppDispatch) => {
     try {
@@ -206,6 +218,14 @@ export const deleteNews = (id: string) => async (dispatch: AppDispatch) => {
 export const updatePage = (id: string, page: IPageRequest) => async (dispatch: AppDispatch) => {
     try {
         await axios.put(API_URL + "pages/" + id,  {...page})
+    } catch (e: any) {
+        console.log("net")
+    }
+}
+
+export const updateCategory = (id: string, category: ICategoryRequest) => async (dispatch: AppDispatch) => {
+    try {
+        await axios.put(API_URL + "categories/" + id,  {...category})
     } catch (e: any) {
         console.log("net")
     }

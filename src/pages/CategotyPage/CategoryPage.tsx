@@ -59,48 +59,17 @@ export const CategoryPage: React.FC<Props> = () => {
                 categories.map((item, key) => 
                     <ListItem
                       item={item as ICategory}
-                      path='news'
+                      path='categories'
                       key={key}
                       action={() => deleteItem(item.id)}
                     />
                 )
             }
-            <button className='add_item' onClick={() => handleShow()}>
-                +
+            <button className='add_item'>
+                <Link to="/categories-create">
+                    +
+                </Link>
             </button>
-            <Modal show={show[0]} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Добавить категорию</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Название</Form.Label>
-                    <Form.Control
-                      type=""
-                      placeholder=""
-                      onChange={(newName) => categoryName[1](newName.target.value)}
-                      autoFocus
-                    />
-                    <Form.Label>Подкатегории</Form.Label>
-                    <Form.Control
-                      type=""
-                      placeholder=""
-                      onChange={(newName) => subcategoryName[1](newName.target.value)}
-                      autoFocus
-                    />
-                  </Form.Group>
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Закрыть и не добавить
-                </Button>
-                <Button variant="primary" onClick={addItem}>
-                  Добавить и закрыть
-                </Button>
-              </Modal.Footer>
-            </Modal>
         </div>
     )
 }

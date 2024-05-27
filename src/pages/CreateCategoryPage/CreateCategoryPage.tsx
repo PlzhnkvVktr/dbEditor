@@ -1,9 +1,8 @@
-import { useRef } from "react"
 import { useAppDispatch } from "../../hooks/redux"
-import { ButtonLink } from "../../components/ButtonLink/ButtonLink"
-import { RichText } from '../../components/RichText/RichText'
-import { postNews } from "../../store/reducers/ActionCreators"
 import { Form } from 'react-bootstrap'
+import { useEffect, useState } from "react"
+import { ButtonLink } from "../../components/ButtonLink/ButtonLink"
+import { postCategory } from "../../store/reducers/ActionCreators"
 
 type Props = {
 
@@ -20,25 +19,21 @@ export const CreateCategoryPage: React.FC<Props> = () => {
     <main>
       <h1>Создание новости</h1>
       <h2>Заголовок</h2>
-      {/* <Form.Control value={title[0]} onChange={(e) => title[1](e.target.value)} as="textarea" rows={3} />
-      <h2>Teкст новости</h2>
-      <RichText value={content} />
+      <Form.Control value={title[0]} onChange={(e) => title[1](e.target.value)} as="textarea" rows={3} />
+      
       <ButtonLink
         text='Создать'
-        link='/news'
+        link='/categories'
         disabled={title[0] == ""}
         onClick={() =>
-          dispatch(postNews({
-              title: title[0],
-              message: content[0]
+          dispatch(postCategory({
+              name: title[0],
+              path: title[0],
+              subcategories: []
             })
           )
         }
-        /> */}
+        />
     </main>
   )
-}
-
-function useState(arg0: string) {
-    throw new Error("Function not implemented.")
 }
