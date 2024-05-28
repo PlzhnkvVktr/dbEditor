@@ -6,6 +6,7 @@ import { fetchCategoryById, updateCategory } from "../../store/reducers/ActionCr
 import { ButtonLink } from "../../components/ButtonLink/ButtonLink"
 import { Loader } from "../LoaderPage/LoaderPage"
 import { ISubcategory } from "../../models/ICategory"
+import s from "./EditCategoryPage.module.css"
 
 type Prors = {
 
@@ -23,12 +24,16 @@ export const EditCategoryPage: React.FC<Prors> = () => {
 
     const handleClose = () => show[1](false)
     const handleShow = () => show[1](true)
-    const addSubcategory = (item: string) => {
-      newSubcategoryList[0].push({
-        name: newSubcategory[0],
-        path: newSubcategory[0],
-        image: ""
-      })
+    const addSubcategory = () => {
+      let copy = Object.assign([], newSubcategoryList[0])
+      copy.push(
+        {
+          name: newSubcategory[0],
+          path: newSubcategory[0],
+          image: ""
+        }
+      )
+      newSubcategoryList[1](copy)
       newSubcategory[1]("")
       handleClose()
     }
@@ -67,7 +72,7 @@ export const EditCategoryPage: React.FC<Prors> = () => {
                 <Button variant="secondary" onClick={handleClose}>
                   Закрыть и не добавить
                 </Button>
-                <Button variant="primary" onClick={() => addSubcategory(newSubcategory[0])}>
+                <Button variant="primary" onClick={addSubcategory}>
                   Добавить и закрыть
                 </Button>
               </Modal.Footer>
@@ -76,20 +81,25 @@ export const EditCategoryPage: React.FC<Prors> = () => {
             <h2>Заголовок</h2>
             <Form.Control value={name[0]} onChange={(e) => name[1](e.target.value)} as="textarea" rows={3} />
             <h2>Подкатегории</h2>
-              {category.subcategories.map((item, key) => <p key={key}>{item.name}</p>)}
-              {newSubcategoryList.map((item, key) => <p>{}</p>)}
+              {category.subcategories.map((item, key) => <p className={s.subcategories} key={key}>{item.name}</p>)}
+              {newSubcategoryList[0]?.map((item, key) => <p className={s.new_subcategories} key={key}>{item.name}</p>)}
               <button onClick={handleShow}>Добавить</button>
             <ButtonLink
-              text='Создать'
+              text='Изменить'
               link='/categories'
               disabled={name[0] == ""}
-              onClick={() =>
+              onClick={() => {
+                console.log({
+                  name: name[0],
+                  path: name[0],
+                  subcategories: [...category.subcategories, ...newSubcategoryList[0]]
+                })
                 dispatch(updateCategory(category.id, {
                     name: name[0],
                     path: name[0],
-                    subcategories: []
+                    subcategories: [...category.subcategories, ...newSubcategoryList[0]]
                   })
-                )
+                )}
               }
         />
     </main>
