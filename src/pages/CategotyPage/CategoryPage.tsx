@@ -15,7 +15,7 @@ export const CategoryPage: React.FC<Props> = () => {
 
     const params = useParams()
     const dispatch = useAppDispatch()
-    const {categories, isLoading, error} = useAppSelector(state => state.categoryReducer)
+    const {categories, isLoadingCategory, errorCategory} = useAppSelector(state => state.categoryReducer)
     const show = useState(false)
     const handleClose = () => show[1](false)
     const handleShow = () => show[1](true)
@@ -36,7 +36,7 @@ export const CategoryPage: React.FC<Props> = () => {
                 {
                     name: subcategoryName[0],
                     path: subcategoryName[0],
-                    image: ""
+                    card_img: ""
                 }
                 
             ]
@@ -50,8 +50,8 @@ export const CategoryPage: React.FC<Props> = () => {
       dispatch(fetchCategory())
     }, [])
     
-    if (isLoading) return <Loader />
-    if (error) return <h1>{error}</h1>
+    if (isLoadingCategory) return <Loader />
+    if (errorCategory) return <h1>{errorCategory}</h1>
 
       return (
         <div>

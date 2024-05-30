@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup } from 'react-bootstrap'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
-import { deleteProduct, fetchProductsByCategory } from '../store/reducers/ActionCreators'
+import { deleteProduct, fetchCategory, fetchProductsBySubcategory} from '../store/reducers/ActionCreators'
 import { Link } from 'react-router-dom'
 import { ListItem } from '../components/ListItem/ListItem'
 import { IProduct } from '../models/IProduct'
 import { Loader } from './LoaderPage/LoaderPage'
+import { ICategory, ISubcategory } from '../models/ICategory'
 
 type Props = {
 
@@ -14,12 +15,24 @@ type Props = {
 export const ProductsPage: React.FC<Props> = () => {
 
     const dispatch = useAppDispatch()
-    const {products, isLoading, error} = useAppSelector(state => state.productByCategoryReducer)
-    const currentCategory = useState("1")
+    const {products, isLoading, error} = useAppSelector(state => state.productReducer)
+    const {categories, isLoadingCategory, errorCategory} = useAppSelector(state => state.categoryReducer)
+    const currentCategory = useState<ICategory>()
+    const currentSubcategory = useState<ISubcategory>()
+    const subcategoryList = useState<ISubcategory[] | any>([])
     
     useEffect(() => {
-      dispatch(fetchProductsByCategory(currentCategory[0]))
-      console.log(isLoading)
+      dispatch(fetchCategory())
+      currentCategory[1](categories[0])
+      // dispatch(fetchCategoryById(currentCategory[0]))
+    }, [])
+
+    useEffect(() => {
+      dispatch(fetchProductsBySubcategory(currentSubcategory[0]?.card_img as string))
+    }, [currentSubcategory[0]])
+
+    useEffect(() => {
+      subcategoryList[1](currentCategory[0]?.subcategories)
     }, [currentCategory[0]])
 
     if (isLoading) return <Loader />
@@ -28,16 +41,14 @@ export const ProductsPage: React.FC<Props> = () => {
     return (
       <main>
         <ButtonGroup aria-label="Basic example">
-          <Button variant="secondary" onClick={() => currentCategory[1]("1")}>Испытательное оборудование</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("2")}>Автомобильная электромеханика</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("3")}>Приборы</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("4")}>Учебные демонстрационные стенды</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("5")}>Гидравлическое оборудование</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("6")}>Измерительные системы</Button>
-          <Button variant="secondary" onClick={() => currentCategory[1]("7")}>Другое оборудование</Button>
+          {categories.map(item => <Button key={item.id} variant="secondary" onClick={() => {currentCategory[1](item)}}>{item.name}</Button>)}
+        </ButtonGroup>
+        <hr />
+        <ButtonGroup aria-label="Basic example">
+          {currentCategory[0]?.subcategories.map(item => <Button variant="secondary" onClick={() => {currentSubcategory[1](item)}}>{item.name}</Button>)}
         </ButtonGroup>
 
-        {products.map((item, key) => 
+        { isLoading ? <Loader /> : products.map((item, key) => 
           <ListItem 
             item={item as IProduct} 
             path="products" 

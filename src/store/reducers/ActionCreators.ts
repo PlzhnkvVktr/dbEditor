@@ -44,6 +44,15 @@ export const fetchCategoryById = (id: string) => async (dispatch: AppDispatch) =
     }
 }
 
+export const fetchProductsBySubcategory = (subcategory: string) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(productSlice.actions.productFetching())
+        const response = await axios.get<IProduct[]>(API_URL + "products/subcategory/" + subcategory)
+        dispatch(productSlice.actions.productFetchingSuccess(response.data))
+    } catch (e: any) {
+        dispatch(productSlice.actions.productFetchingError(e.message))
+    }
+}
 
 export const fetchNews = () => async (dispatch: AppDispatch) => {
     try {

@@ -8,5 +8,5 @@ export interface ICategory {
 export interface ISubcategory {
     name: string
     path: string
-    image: string
+    card_img: string
 }

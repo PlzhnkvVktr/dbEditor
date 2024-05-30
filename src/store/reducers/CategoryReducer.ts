@@ -4,14 +4,14 @@ import { ICategoryRequest } from "../../models/ICategoryRequest";
 
 interface CategoryState {
     categories: ICategory[]
-    isLoading: boolean
-    error: string
+    isLoadingCategory: boolean
+    errorCategory: string
 }
 
 const initialState: CategoryState = {
     categories: [],
-    isLoading: false,
-    error: ""
+    isLoadingCategory: false,
+    errorCategory: ""
 }
 
 export const categorySlice = createSlice({
@@ -19,20 +19,20 @@ export const categorySlice = createSlice({
     initialState,
     reducers: {
         categoryFetching(state) {
-            state.isLoading = true
+            state.isLoadingCategory = true
         },
         categoryFetchingSuccess(state, action: PayloadAction<ICategory[]>) {
-            state.isLoading = false
-            state.error = ''
+            state.isLoadingCategory = false
+            state.errorCategory = ''
             state.categories = action.payload
         },
         addCategorySuccess(state) {
-            state.isLoading = false
-            state.error = ''
+            state.isLoadingCategory = false
+            state.errorCategory = ''
         },
         categoryFetchingError(state, action: PayloadAction<string>) {
-            state.isLoading = false
-            state.error = action.payload
+            state.isLoadingCategory = false
+            state.errorCategory = action.payload
         }
     }
 })
