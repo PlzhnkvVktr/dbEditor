@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import s from "./CreateProductPage.module.css"
 import JoditEditor from 'jodit-react';
 import { Link } from 'react-router-dom';
-import { Accordion, Alert, Button, ButtonGroup, Form, Tab, Tabs } from 'react-bootstrap'
-import { useAppDispatch } from '../../hooks/redux';
+import { Accordion, Alert, Button, ButtonGroup, Dropdown, DropdownButton, Form, Tab, Tabs } from 'react-bootstrap'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import Image from 'react-bootstrap/Image';
 import { height } from '@mui/system';
 import { size } from 'jodit/esm/core/helpers';
 import { lang } from 'jodit/esm/core/constants';
-import { postProduct } from '../../store/reducers/ActionCreators';
+import { fetchCategory, postProduct } from '../../store/reducers/ActionCreators';
 import { RichText } from '../../components/RichText/RichText';
 import { ImagesPage } from '../ImagesPage/ImagesPage';
 import { ButtonLink } from '../../components/ButtonLink/ButtonLink';
@@ -30,6 +30,10 @@ export const CreateProductPage: React.FC<Props> = () => {
   const category = useState('')
   const subcategoty = useState('')
   const modification = useState('')
+  
+  const currentCategory = useState<number>(0)
+
+  const {categories, isLoadingCategory, errorCategory} = useAppSelector(state => state.categoryReducer)
 
   const [show, setShow] = useState(false);
 
@@ -37,6 +41,14 @@ export const CreateProductPage: React.FC<Props> = () => {
     card_img[1](event.target.value);
   }
   
+  useEffect(() => {
+    dispatch(fetchCategory())
+  }, [])
+    
+  useEffect(() => {
+    subcategoty[1]("")
+  }, [category[0]])
+
   return (
     <main>
       <Alert show={show} variant="success" className="images_alert">
@@ -52,7 +64,7 @@ export const CreateProductPage: React.FC<Props> = () => {
       {
         !show && 
         <div>
-          <h1>Создание карточки товара</h1>
+          <h1>Создание карточки продукта</h1>
           <h2 className={s.h2_style}>Заголовок</h2>
           <Form.Control className={s.textarea_style} value={name[0]} onChange={(e) => name[1](e.target.value)} as="textarea" rows={3} />
           <Tabs
@@ -70,9 +82,29 @@ export const CreateProductPage: React.FC<Props> = () => {
                 </div>
               </div>   
               <h2 className={s.h2_style}>Категория</h2>
-              <Form.Control className={s.textarea_style} value={category[0]} onChange={(e) => category[1](e.target.value)} as="textarea" rows={1} />
+              <DropdownButton id="dropdown-basic-button" title={category[0] == "" ? "Не выбрано" : category[0]}>
+                <Dropdown.Item  onClick={() => category[1]("")}>Не выбрано</Dropdown.Item>
+                {
+                  categories.map((item, key) => 
+                  <Dropdown.Item key={key} onClick={
+                    () => {
+                      category[1](item.name)
+                      currentCategory[1](key)
+                    }
+                  }>{item.name}</Dropdown.Item>
+                )}
+              </DropdownButton>
+
               <h2 className={s.h2_style}>Подкатегория</h2>
-              <Form.Control className={s.textarea_style} value={subcategoty[0]} onChange={(e) => subcategoty[1](e.target.value)} as="textarea" rows={1} />
+              {
+                category[0] != "" && 
+                <DropdownButton id="dropdown-basic-button" title={subcategoty[0] == "" ? "Не выбрано" : subcategoty[0]}>
+                <Dropdown.Item  onClick={() => subcategoty[1]("")}>Не выбрано</Dropdown.Item>
+                  {
+                    categories[currentCategory[0]].subcategories.map(item => <Dropdown.Item  onClick={() => subcategoty[1](item.name)}>{item.name}</Dropdown.Item>)
+                  }
+              </DropdownButton>
+              }
             </Tab>
             <Tab eventKey="description" title="Описание">
               <RichText value={description} />

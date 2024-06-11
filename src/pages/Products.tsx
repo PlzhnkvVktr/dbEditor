@@ -20,15 +20,20 @@ export const ProductsPage: React.FC<Props> = () => {
     const currentCategory = useState<ICategory>()
     const currentSubcategory = useState<ISubcategory>()
     const subcategoryList = useState<ISubcategory[] | any>([])
+
+    // const getCategories = async () => {
+    //   await dispatch(fetchCategory())
+    //   await console.log(categories)
+    // }
     
     useEffect(() => {
       dispatch(fetchCategory())
-      currentCategory[1](categories[0])
+      // currentCategory[1](categories[0])
       // dispatch(fetchCategoryById(currentCategory[0]))
     }, [])
 
     useEffect(() => {
-      dispatch(fetchProductsBySubcategory(currentSubcategory[0]?.card_img as string))
+      dispatch(fetchProductsBySubcategory(currentSubcategory[0]?.name as string))
     }, [currentSubcategory[0]])
 
     useEffect(() => {
