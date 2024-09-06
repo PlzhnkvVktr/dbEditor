@@ -10,6 +10,7 @@ import Image from 'react-bootstrap/Image';
 import { ImagesPage } from '../ImagesPage/ImagesPage';
 import { RichText } from '../../components/RichText/RichText';
 import { ButtonLink } from '../../components/ButtonLink/ButtonLink';
+import { API_URL } from '../../const/const';
 
 type Props = {
 
@@ -82,7 +83,7 @@ export const EditProductPage: React.FC<Props> = () => {
           >
             <Tab eventKey="home" title="Картинка продукта">
               <div>
-                <Image src={card_img[0]} thumbnail />
+                <Image src={API_URL + card_img[0]} thumbnail />
                 <div>
                   <input type='text' value={card_img[0]} onChange={handleChange} />
                   <Button onClick={() => setShow(true)}>{card_img[0] == "" ? "Добавить" : "Изменить"}</Button>
