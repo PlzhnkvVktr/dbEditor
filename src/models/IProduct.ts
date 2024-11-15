@@ -2,6 +2,7 @@ export interface IProduct {
     id: string
     name: string
     card_img: string
+    card_description: string
     description: string
     characteristic: string
     specification: string

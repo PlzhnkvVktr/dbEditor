@@ -14,7 +14,7 @@ export const ListItem: React.FC<Props> = ({item, path, key, action}) => {
         <div className={s.item_container} key={key}>
           <div className={s.item_title}>
             <h2>
-              <Link to={`/${path}/${item.id}`}>{item.name || item.title}</Link>
+              <Link to={`/${path}-edit/${item.id}`}>{item.name || item.title}</Link>
             </h2>
           </div>
           <div>

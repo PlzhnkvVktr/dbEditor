@@ -12,6 +12,7 @@ const initialState: ProductItemState = {
         id: "",
         name: "",
         card_img: "",
+        card_description: "",
         description: "",
         characteristic: "",
         specification: "",

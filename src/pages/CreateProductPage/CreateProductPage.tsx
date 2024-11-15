@@ -24,6 +24,7 @@ export const CreateProductPage: React.FC<Props> = () => {
   const name = useState("")
   const card_img = useState("")
   const description = useState("")
+  const card_description = useState("")
   const characteristic = useState("")
   const specification = useState("")
   const additionally = useState("")
@@ -127,6 +128,7 @@ export const CreateProductPage: React.FC<Props> = () => {
               dispatch(postProduct({
                   name: name[0],
                   card_img: card_img[0],
+                  card_description: card_description[0],
                   description: description[0],
                   characteristic: characteristic[0],
                   specification: specification[0],
